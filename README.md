@@ -23,3 +23,9 @@ The config trigger allows operators to install and uninstall the datapack if cha
 This datapack also executes a function when a player joins the world for their first time. This can be used to do things such as assigning them to a team or giving them items to start their playthrough.
 
 There is also a 1 second loop where you can put your more computationally-expensive commands, such as NBT data queries or uses of `/execute`.
+
+
+# Additional Resources
+- https://datapack.wiki/
+- https://misode.github.io/
+- https://mcreator.net/about/minecraft-data-pack-maker

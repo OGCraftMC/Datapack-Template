@@ -19,16 +19,4 @@ jobs:
         with:
           source_repo_path: OGCraftMC/Datapack-Template
           upstream_branch: main  # change if not main
-          create_pull_request: false
-
-      - name: Create Pull Request (fallback)
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: merge template changes 
-          title: upstream merge template repository
-          body: |
-            This PR was created automatically by the template sync workflow.
-          branch: chore/template_sync
-          delete-branch: false
-          labels: template_sync
+          pr_labels: teplate_sync

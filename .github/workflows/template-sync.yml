@@ -1,43 +1,40 @@
-# File: .github/workflows/template-sync.yml
+name: Template Sync
 
 on:
-  # cronjob trigger
-#  schedule:
-#  - cron: "0 0 1 * *"
-  # manual trigger
   workflow_dispatch:
+
 jobs:
   repo-sync:
     runs-on: ubuntu-latest
-    # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
     permissions:
       contents: write
       pull-requests: write
 
     steps:
-      # To use this repository's private action, you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
-        # https://github.com/actions/checkout#usage
-        # uncomment if you use submodules within the repository
-        # with:
-        #   submodules: true
 
-      - name: actions-template-sync
+      - name: Template Sync
         uses: AndreasAugustin/actions-template-sync@v2
         with:
           source_repo_path: OGCraftMC/Datapack-Template
-          upstream_branch: <target_branch> # defaults to main
-          create_pull_request: false
+          upstream_branch: main  # change if not main
+          pr_branch_name_prefix: chore/template_sync
+          pr_title: upstream merge template repository
+          pr_labels: template_sync
+          pr_commit_msg: chore(template): merge template changes :up:
+        env:
+          SOURCE_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Pull Request
+      - name: Create Pull Request (fallback)
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: chore: template sync
-          title: chore: template sync
+          commit-message: chore(template): merge template changes :up:
+          title: upstream merge template repository
           body: |
-            Automated sync from template.
+            This PR was created automatically by the template sync workflow.
           branch: chore/template_sync
           delete-branch: false
           labels: template_sync

@@ -22,7 +22,7 @@ jobs:
           pr_branch_name_prefix: chore/template_sync
           pr_title: upstream merge template repository
           pr_labels: template_sync
-          pr_commit_msg: chore(template): merge template changes :up:
+          pr_commit_msg: merge template changes
         env:
           SOURCE_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TARGET_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: chore(template): merge template changes :up:
+          commit-message: merge template changes
           title: upstream merge template repository
           body: |
             This PR was created automatically by the template sync workflow.

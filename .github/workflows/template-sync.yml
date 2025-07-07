@@ -28,4 +28,16 @@ jobs:
         with:
           source_repo_path: OGCraftMC/Datapack-Template
           upstream_branch: <target_branch> # defaults to main
-          pr_labels: Template-Sync # defaults to template_sync
+          create_pull_request: false
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: chore: template sync
+          title: chore: template sync
+          body: |
+            Automated sync from template.
+          branch: chore/template_sync
+          delete-branch: false
+          labels: template_sync

@@ -1,9 +1,18 @@
-tellraw @a [{"text":"Brainage's Template","color": "green"},{"text": " loaded. | ","color": "yellow"},{"text": "ABOUT","color": "green","hover_event": {"action": "show_text","value": [{"text": "Click to learn about Brainage's Template.\n","color": "white"},{"text": "Executes command \"/trigger brainage_template.about\"","color": "gray"}]},"click_event": {"action": "run_command","command": "/trigger brainage_template.about"}},{"text": " | ","color": "yellow"},{"text": "CONFIG","color": "green","hover_event": {"action": "show_text","value": [{"text": "Click to configure Brainage's Template.\n","color": "white"},{"text": "Executes command \"/trigger brainage_template.config\"","color": "gray"}]},"click_event": {"action": "run_command","command": "/trigger brainage_template.config"}}]
+#create scoreboard to track if game is running
+scoreboard objectives add gamerunning dummy
 
-# Check for Install
-scoreboard objectives add brainage_template.installed dummy
-execute unless score #brainage_template brainage_template.installed matches 1 run function brainage_template:config/install
+#create scoreboard to track new players
+scoreboard objectives add newplayer dummy
 
-# Reload 1 Second Loop
-schedule clear brainage_template:loops/1_second
-function brainage_template:loops/1_second
+#create scoreboard to track players that leave
+scoreboard objectives add leave minecraft.custom:minecraft.leave_game
+
+#create any other scoreboards needed for game
+scoreboard objectives add ReplaceWithObjective dummy
+
+#set scoreboard values
+scoreboard players reset @a leave
+scoreboard players set #gamerunning gamerunning 0
+
+#clear everyones inventory, remove if they must spawn with items
+clear @a
